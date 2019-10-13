@@ -1,0 +1,9 @@
+.vagrant
+data/*
+!data/.gitkeep
+app/*
+!app/.gitkeep
+.env
+
+# !app/wp-content/themes/*
+# !app/wp-content/plugins/*
