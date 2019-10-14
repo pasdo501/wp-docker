@@ -21,7 +21,9 @@ For first time usage, do the following in the project root directory:
 - Restore database: `./bin/restore-db.sh <dump-file-name>` (make sure restore-db has execution permission)
 
 ## Todo
-- [ ] Better error checking in the wp-config script?
+- [ ] Better (or any, really) error checking in the wp-config script?
 - [x] Removal of unnecessary themes etc
 - [ ] Configurable DB_NAME, etc, as well as admin name, email, password
 - [x] Add Mailhog
+- [ ] Find a better way to handle permissions
+- [ ] Deploy script
