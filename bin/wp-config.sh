@@ -34,6 +34,10 @@ docker exec -i $(docker-compose ps -q wp) sh -c "$cmd" && echo "Success." || ech
 # Take control of the directory?
 sudo chown -R $USER ./app
 
+# Get rid of unnecessary themes / plugins
+rm -f ./app/wp-content/hello.php
+rm -rf ./app/wp-content/themes/{twentysixteen,twentyseventeen}
+
 echo "Checking DB Connection ..."
 # Check DB Connection
 cmd='wp --allow-root db check'

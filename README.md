@@ -19,3 +19,9 @@ For first time usage, do the following in the project root directory:
 - Delete the db_data volume: `docker-compose down -v`
 - Export the database (to `./data/dump.sql`): `./bin/export-db.sh` (make sure export-db has execution permission)
 - Restore database: `./bin/restore-db.sh <dump-file-name>` (make sure restore-db has execution permission)
+
+## Todo
+- [ ] Better error checking in the wp-config script?
+- [x] Removal of unnecessary themes etc
+- [ ] Configurable DB_NAME, etc, as well as admin name, email, password
+- [x] Add Mailhog
