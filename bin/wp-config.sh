@@ -2,6 +2,11 @@
 cd $(dirname $0)
 cd ../app
 
+DEV_URL=$(grep -oP '^DEV_URL=\K.*' ../.env)
+LIVE_URL=$(grep -oP '^LIVE_URL=\K.*' ../.env)
+[ -z $DEV_URL ] && { echo "DEV_URL not set in .env, exiting ..."; exit 1; }
+[ -z $LIVE_URL ] && { echo "LIVE_URL not set in .env, exiting ..."; exit 1; }
+
 echo 'Downloading WP-Core ...'
 wp core download
 echo 'Configuring WordPress ...'
@@ -32,7 +37,7 @@ cmd="wp --allow-root core install --url=$DEV_URL --title=$TITLE --admin_user=adm
 docker exec -i $(docker-compose ps -q wp) sh -c "$cmd" && echo "Success." || echo "Error during WP Core Install"
 
 # Take control of the directory?
-sudo chown -R $USER ./app
+sudo chown -R $USER:$USER ./app
 
 # Get rid of unnecessary themes / plugins
 rm -f ./app/wp-content/hello.php
