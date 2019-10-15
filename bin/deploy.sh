@@ -19,6 +19,7 @@ LIVE_URL=$(grep -oP '^LIVE_URL=\K.*' .env)
 
 [ -z $DEV_URL ] && { echo "DEV_URL not set in .env, exiting ..."; exit 1; }
 [ -z $LIVE_URL ] && { echo "LIVE_URL not set in .env, exiting ..."; exit 1; }
+[ -f data/dump.sql ] || { echo "Database dump doesn't exist, please run export-db.sh first! Exiting ..."; exit 1; }
 
 temp_dir=DEPLOY_TEMP;
 cd $(dirname $0)/..;
