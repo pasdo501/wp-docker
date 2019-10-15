@@ -1,12 +1,12 @@
 # WordPress & Docker
 
-WordPress with Docker development. Based on the article [found here](https://akrabat.com/developing-wordpress-sites-with-docker/).
+WordPress with Docker development. Initially based on the article [found here](https://akrabat.com/developing-wordpress-sites-with-docker/).
 
 ## Installation
 
 For first time usage, do the following in the project root directory:
 1. Create a `.env` file in the project root (e.g run `cp .env.example .env`)
-1. Set your env variables as needed. Note: `Title` referes to the site's title. `LIVE_URL` is not really used properly at the moment
+1. Set your env variables as needed. Note: `Title` refers to the site's title.
 1. Run `docker-compose up`
 1. Wait for docker to start up
 1. Run `bin/wp-config.sh`
