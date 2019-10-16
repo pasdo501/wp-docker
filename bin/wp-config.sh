@@ -2,10 +2,19 @@
 cd $(dirname $0)
 cd ../app
 
-DEV_URL=$(grep -oP '^DEV_URL=\K.*' ../.env)
-LIVE_URL=$(grep -oP '^LIVE_URL=\K.*' ../.env)
+# Parse .env file, make sure all the variables are set
+DEV_URL=$(grep -oP '^DEV_URL=\K.*' .env)
+LIVE_URL=$(grep -oP '^LIVE_URL=\K.*' .env)
+TITLE=$(grep -oP '^TITLE=\K.*' .env)
+ADMIN_NAME=$(grep -oP '^ADMIN_NAME=\K.*' .env)
+ADMIN_PASSWORD=$(grep -oP '^ADMIN_PASSWORD=\K.*' .env)
+ADMIN_EMAIL=$(grep -oP '^ADMIN_EMAIL=\K.*' .env)
 [ -z $DEV_URL ] && { echo "DEV_URL not set in .env, exiting ..."; exit 1; }
 [ -z $LIVE_URL ] && { echo "LIVE_URL not set in .env, exiting ..."; exit 1; }
+[ -z $TITLE ] && { echo "TITLE not set in .env, exiting ..."; exit 1; }
+[ -z $ADMIN_NAME ] && { echo "ADMIN_NAME not set in .env, exiting ..."; exit 1; }
+[ -z $ADMIN_PASSWORD ] && { echo "ADMIN_PASSWORD not set in .env, exiting ..."; exit 1; }
+[ -z $ADMIN_EMAIL ] && { echo "ADMIN_EMAIL not set in .env, exiting ..."; exit 1; }
 
 echo 'Downloading WP-Core ...'
 wp core download
@@ -30,10 +39,8 @@ sed -i \
 cd .. # Return to root app for docker environment file purposes
 # Install DB Core
 echo "Installing WordPress ..."
-#Get LIVE & DEV url
-DEV_URL=$(grep -oP '^DEV_URL=\K.*' .env)
-TITLE=$(grep -oP '^TITLE=\K.*' .env)
-cmd="wp --allow-root core install --url=$DEV_URL --title=$TITLE --admin_user=admin --admin_email=admin@example.com --admin_password=admin --skip-email"
+
+cmd="wp --allow-root core install --url=$DEV_URL --title=$TITLE --admin_user=$ADMIN_NAME --admin_email=$ADMIN_EMAIL --admin_password=$ADMIN_PASSWORD --skip-email"
 docker exec -i $(docker-compose ps -q wp) sh -c "$cmd" && echo "Success." || echo "Error during WP Core Install"
 
 # Take control of the directory?

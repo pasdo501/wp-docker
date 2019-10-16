@@ -26,7 +26,7 @@ services:
   wp:
     build:
       context: ./docker
-      dockerfile: Dockerfile-wp
+      dockerfile: wp.Dockerfile
     ports:
       - 127.0.0.1:80:80
     volumes:

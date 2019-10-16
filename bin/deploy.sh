@@ -69,7 +69,7 @@ echo 'Updating the DB ...'; \
 wp --allow-root search-replace $DEV_URL $LIVE_URL --skip-columns=guid; \
 echo 'Unpacking the plugins ...'; \
 cd wp-content/plugins; \
-mv ~/$temp_dir/plugins.tar.gz ./; \
+mv ~/$temp_dir/plugins.tar.gz .; \
 tar -zxf plugins.tar.gz; \
 echo 'Unpacking uploads ...'; \
 cd ../uploads; \
