@@ -30,6 +30,7 @@ wp config create \
 define('WB_DEBUG', (bool) (\$_ENV['WP_DEBUG'] ?? false ));
 define('WP_DEBUG_LOG', (bool) (\$_ENV['WP_DEBUG'] ?? false ));
 PHP
+
 sed -i \
     -e "s/'DB_NAME_REPLACE'/\$_SERVER\['DB_NAME'\] \?\? \$_ENV\['DB_NAME'\] \?\? null/g" \
     -e "s/'DB_USER_REPLACE'/\$_SERVER\['DB_USER'\] \?\? \$_ENV\['DB_USER'\] \?\? null/g" \
@@ -41,7 +42,7 @@ cd .. # Return to root app for docker environment file purposes
 # Install DB Core
 echo "Installing WordPress ..."
 
-cmd="wp --allow-root core install --url="$DEV_URL" --title="$TITLE" --admin_user="$ADMIN_NAME" --admin_email="$ADMIN_EMAIL" --admin_password="$ADMIN_PASSWORD" --skip-email"
+cmd="su www-data -c 'wp core install --url="$DEV_URL" --title="$TITLE" --admin_user="$ADMIN_NAME" --admin_email="$ADMIN_EMAIL" --admin_password="$ADMIN_PASSWORD" --skip-email' -s /bin/bash"
 docker exec -i $(docker-compose ps -q wp) sh -c "$cmd" && echo "Success." || echo "Error during WP Core Install"
 
 # Take control of the directory?
@@ -53,7 +54,7 @@ rm -rf ./app/wp-content/themes/{twentysixteen,twentyseventeen}
 
 echo "Checking DB Connection ..."
 # Check DB Connection
-cmd='wp --allow-root db check'
+cmd='su www-data -c "wp db check" -s /bin/bash'
 docker exec -i $(docker-compose ps -q wp) sh -c "$cmd"
 
 echo "WordPress successfully configured. Visit $DEV_URL and start developing!"

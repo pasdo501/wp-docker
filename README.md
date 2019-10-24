@@ -8,7 +8,7 @@ For first time usage, do the following in the project root directory:
 1. Create a `.env` file in the project root (e.g run `cp .env.example .env`)
 1. Set your env variables as needed. Note: `Title` refers to the site's title.
 1. Run `docker-compose up`
-1. Wait for docker to start up
+1. Wait for docker to start up (the database container can take a while to be ready)
 1. Run `bin/wp-config.sh`
 
 **Prerequisits**: You will need to have [docker](https://www.docker.com/) and the [wp cli tool](https://wp-cli.org/) installed.
@@ -38,6 +38,7 @@ For first time usage, do the following in the project root directory:
 - [x] Removal of unnecessary themes etc
 - [x] Configurable ~~DB_NAME, etc, as well as~~ admin name, email, password
 - [x] Add Mailhog
-- [ ] Find a better way to handle permissions
 - [x] Deploy script
-- [ ] Consider su to not use wp as container's root user
+- [x] Find a better way to handle permissions (related to next)
+- [x] Consider su to not use wp as container's root user (still need to extend to wp core donwload / install during initial setup)
+- [ ] Make web user, web html dir, uid & gid configurable

@@ -66,7 +66,7 @@ DB_PASSWORD=\$(config_parse DB_PASSWORD); \
 echo 'Importing the DB ...'; \
 mysql -u \$DB_USER -p\$DB_PASSWORD \$DB_NAME < ~/$temp_dir/dump.sql; \
 echo 'Updating the DB ...'; \
-wp --allow-root search-replace $DEV_URL $LIVE_URL --skip-columns=guid; \
+su www-data -c 'wp search-replace $DEV_URL $LIVE_URL --skip-columns=guid' -s /bin/bash; \
 echo 'Unpacking the plugins ...'; \
 cd wp-content/plugins; \
 mv ~/$temp_dir/plugins.tar.gz .; \
