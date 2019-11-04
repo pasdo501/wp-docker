@@ -3,7 +3,7 @@ version: '3'
 services:
   mailhog:
     image: mailhog/mailhog
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - 1025:1025
       - 8025:8025
