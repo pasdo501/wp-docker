@@ -4,6 +4,7 @@ data/*
 app/*
 !app/.gitkeep
 .env
+.vscode
 
 # !app/wp-content/themes/*
 # !app/wp-content/plugins/*
