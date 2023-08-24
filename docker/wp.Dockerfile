@@ -1,7 +1,7 @@
-FROM wordpress:php8.1-apache
+FROM wordpress:php7.4-apache
 
 # Install xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN pecl install xdebug-3.1.4 && docker-php-ext-enable xdebug
 
 # xdebug config
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
@@ -9,6 +9,8 @@ RUN echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/docker-php
 RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/docker-php-ext-debug.ini
+
 
 # Install Less for WP-CLI
 RUN apt-get update && apt-get -y install less
